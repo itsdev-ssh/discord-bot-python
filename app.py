@@ -1,30 +1,21 @@
-# Simples codigo para ligar um bot do discord, codigo criado por ItsDev?_.
+# código criado por ItsDev?_.
 
-import os
 import discord
-from dotenv import load_dotenv
+from discord.ext import commands
 
-load_dotenv()
-TOKEN = os.getenv('COLE_SEU_TOKEN_AQUI') # Cole o token do seu bot aqui.
+intents = discord.Intents.default()
+intents.message_content = True
 
-client = discord.client()
+bot = commands.Bot(command_prefix="!", intents=intents)
 
-@client.event
+@bot.event
 async def on_ready():
-    print(f'{client.user} foi ligado com sucesso!')
+    print(f'Seu bot está online!')
 
-# voce pode implementar mais coisas aqui em baixo
-# Este pequeno codigo é uma mensagem de boas vindas que o bot manda no privado do usuario que acabou de entrar em seu servidor do discord.
+# comando de !ola
+@bot.command()
+async def ola(ctx):
+    await ctx.send(f"Olá, {ctx.author.mention}!")
 
-# @client.event
-# async def on_member_join(member):
-#    await member.create_dm()
-#    await member.dm_channel.send(
-#        f'Hi {member.name}, welcome to my Discord server!'
-#    )
-
-# remova as "#" para este codigo de boas vindas funcionar.
-
-client.run(TOKEN)
-
-# Este é só um exemplo básico de um codigo para discord bot em Python.
+TOKEN = "seu token" # cole seu token aqui.
+bot.run(TOKEN)
